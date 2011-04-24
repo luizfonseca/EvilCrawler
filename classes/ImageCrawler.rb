@@ -1,8 +1,9 @@
+require 'nokogiri'
 require 'open-uri'
 
 class ImageCrawler
   attr_accessor :query, :resolution
-  @google_url = "http://www.google.com.br/images?q=runeroniek"
+  $google_url = "http://www.google.com.br/images?hl=pt-BR&source=hp&q="
   
   def initialize(query, resolution)
     @query = query
@@ -10,7 +11,8 @@ class ImageCrawler
   end
 
   def do_search
-    open('http://www.google.com.br/images?q=runeroniek') do |f|
+    image_url = $google_url + self.query
+    open(image_url) do |f|
       f.each do |line|
         print "#{line}"
       end
