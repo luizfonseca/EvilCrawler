@@ -2,6 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'rubygems'
 require 'mechanize'
+require 'date'
 
 class ImageCrawler
   attr_accessor :query, :resolution
@@ -34,9 +35,10 @@ class ImageCrawler
     rescue Mechanize::ResponseCodeError => e
       error = e.response_code.to_i
     end
-    if error != 404
+    if !error
+      created_at = Time.now.strftime("%Y-%m-%d_%H%M%S")
       puts "Saved file #{name} in Data folder."
-      agent.get(link).save_as($image_folder + "#{name}")
+      agent.get(link).save_as($image_folder + created_at + "#{name}")
     end
   
   end
