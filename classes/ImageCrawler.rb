@@ -27,10 +27,18 @@ class ImageCrawler
   end
   
   def take_image (link, name)
-    link = "http://#{link}"
-    puts "Saved file #{name} in Data folder."
-    agent = Mechanize.new
-    agent.get(link).save_as($image_folder + "#{name}")
+    begin
+      link = "http://#{link}"
+      agent = Mechanize.new
+      agent.get(link)
+    rescue Mechanize::ResponseCodeError => e
+      error = e.response_code.to_i
+    end
+    if error != 404
+      puts "Saved file #{name} in Data folder."
+      agent.get(link).save_as($image_folder + "#{name}")
+    end
+  
   end
   
   def filter_resolution
