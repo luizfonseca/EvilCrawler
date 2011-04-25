@@ -35,12 +35,11 @@ class ImageCrawler
     rescue Mechanize::ResponseCodeError => e
       error = e.response_code.to_i
     end
-    if !error
+    unless error
       created_at = Time.now.strftime("%Y-%m-%d_%H%M%S")
       puts "Saved file #{name} in Data folder."
-      agent.get(link).save_as($image_folder + created_at + "#{name}")
-    end
-  
+      agent.get(link).save_as($image_folder + created_at + "#{name}") unless error
+    end 
   end
   
   def filter_resolution
