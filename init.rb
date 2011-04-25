@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
-require './classes/ImageCrawler.rb'
+#require './classes/GoogleImageCrawler.rb'
+require './classes/SimpleDesktopCrawler.rb'
 
-image = ImageCrawler.new("bla","a")
-image.do_search
+#image = GoogleImageCrawler.new("term+of+search","1000x+")
+#image.do_search
+
+image = SimpleDesktopCrawler.new
+image.take_everything
