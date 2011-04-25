@@ -2,7 +2,6 @@ require 'nokogiri'
 require 'open-uri'
 require 'rubygems'
 require 'mechanize'
-require 'date'
 
 class ImageCrawler
   attr_accessor :query, :resolution
@@ -17,10 +16,12 @@ class ImageCrawler
   def do_search
     image_url = $google_url + self.query
     document = Nokogiri::HTML(open(image_url))
+    
     document.search('img').each do |i|
       src = i.attribute('src')
       file_url = src.to_s.split('http://')[2]
       file_name = file_url.to_s.split('/')[-1]
+      
       if file_name != nil && file_url != nil
         self.take_image(file_url, file_name)
       end
@@ -38,7 +39,7 @@ class ImageCrawler
     unless error
       created_at = Time.now.strftime("%Y-%m-%d_%H%M%S")
       puts "Saved file #{name} in Data folder."
-      agent.get(link).save_as($image_folder + created_at + "#{name}") unless error
+      agent.get(link).save_as($image_folder + created_at + "#{name}")
     end 
   end
   
