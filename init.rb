@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
-#require './classes/GoogleImageCrawler.rb'
-require './classes/SimpleDesktopCrawler.rb'
+#require './classes/google_image_crawler.rb'
+require './classes/simple_desktop_crawler.rb'
 
 #image = GoogleImageCrawler.new("term+of+search","1000x+")
 #image.do_search
