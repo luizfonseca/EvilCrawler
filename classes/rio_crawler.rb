@@ -30,7 +30,7 @@ entities.each do |query|
   begin
     document = Nokogiri::HTML(open("#{url}#{query}"))
     result = document.search('p').text
-    result = result.match(/(secretária|secretário|secretáriaa) é? ([^"]*)/).captures[1]
+    result = result.match(/(secretária|secretário|secretáriaa) é? ([^"]*),([^"]*)/).captures[1]
 
     puts "#{query}: #{result} \n"
     puts "----------------------"
